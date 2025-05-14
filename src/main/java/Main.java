@@ -48,10 +48,10 @@ class Main {
     }
 
     public static String ReadName() throws WrongStudentName {
-        scan.nextLine();
+        scan.nextLine(); // Czyścimy bufor
         System.out.println("Podaj imię: ");
         String name = scan.nextLine();
-        if(name.contains(" "))
+        if (name.contains(" "))
             throw new WrongStudentName();
 
         return name;
@@ -59,11 +59,27 @@ class Main {
 
     public static void exercise1() throws IOException, WrongStudentName {
         var name = ReadName();
-        System.out.println("Podaj wiek: ");
-        var age = scan.nextInt();
-        scan.nextLine();
+
+        int age;
+        while (true) {
+            System.out.println("Podaj wiek (1-99): ");
+            if (scan.hasNextInt()) {
+                age = scan.nextInt();
+                if (age >= 1 && age <= 99) {
+                    break;
+                } else {
+                    System.out.println("Wiek musi być w przedziale od 1 do 99.");
+                }
+            } else {
+                System.out.println("Niepoprawna wartość. Podaj liczbę całkowitą.");
+                scan.next(); 
+            }
+        }
+
+        scan.nextLine(); 
         System.out.println("Podaj datę urodzenia DD-MM-YYYY");
         var date = scan.nextLine();
+
         (new Service()).addStudent(new Student(name, age, date));
     }
 
