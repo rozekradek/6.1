@@ -48,15 +48,15 @@ class Main {
             System.out.println("1 - aby dodać studenta");
             System.out.println("2 - aby wypisać wszystkich studentów");
             System.out.println("3 - aby wyszukać studenta po imieniu");
-            
+            System.out.println("0 - aby wyjść z programu");
 
-            String input = scan.nextLine(); // czytamy jako tekst
+            String input = scan.nextLine(); // wczytujemy cały wiersz
 
-            // sprawdzamy czy to liczba całkowita (dowolnej długości)
-            if (input.matches("\\d+")) {
-                return Integer.parseInt(input); // konwertujemy na liczbę
+            // Pozwalamy tylko na cyfry 1, 2, 3 lub 0
+            if (input.matches("[0-3]")) {
+                return Integer.parseInt(input);
             } else {
-                System.out.println("Błąd! Wpisz tylko cyfry (np. 0, 1, 2...).");
+                System.out.println("Błąd! Wpisz tylko jedną cyfrę z zakresu 0–3.");
             }
         }
     }
