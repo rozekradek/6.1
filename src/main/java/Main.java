@@ -43,16 +43,26 @@ class Main {
     }
 
     public static int menu() {
-        System.out.println("Wciśnij:");
-        System.out.println("1 - aby dodać studenta");
-        System.out.println("2 - aby wypisać wszystkich studentów");
-        System.out.println("3 - aby wyszukać studenta po imieniu");
-        System.out.println("0 - aby wyjść z programu");
-        return scan.nextInt();
+        while (true) {
+            System.out.println("Wciśnij:");
+            System.out.println("1 - aby dodać studenta");
+            System.out.println("2 - aby wypisać wszystkich studentów");
+            System.out.println("3 - aby wyszukać studenta po imieniu");
+            
+
+            String input = scan.nextLine(); // czytamy jako tekst
+
+            // sprawdzamy czy to liczba całkowita (dowolnej długości)
+            if (input.matches("\\d+")) {
+                return Integer.parseInt(input); // konwertujemy na liczbę
+            } else {
+                System.out.println("Błąd! Wpisz tylko cyfry (np. 0, 1, 2...).");
+            }
+        }
     }
 
     public static String ReadName() throws WrongStudentName {
-        scan.nextLine(); // Czyścimy bufor
+        scan.nextLine(); 
         System.out.println("Podaj imię: ");
         String name = scan.nextLine();
         if (name.contains(" "))
@@ -84,7 +94,7 @@ class Main {
         System.out.println("Podaj datę urodzenia DD-MM-YYYY:");
         var date = scan.nextLine();
 
-        // Sprawdzenie formatu daty: DD-MM-YYYY, gdzie D i M mają max 2 cyfry, Y = 4 cyfry
+    
         if (!date.matches("^\\d{1,2}-\\d{1,2}-\\d{4}$")) {
             throw new WrongDateOfBirth();
         }
