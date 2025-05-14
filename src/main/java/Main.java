@@ -16,7 +16,7 @@ import java.io.IOException;
 import java.util.Scanner;
 
 class WrongStudentName extends Exception { }
-
+class WrongDateOfBirth extends Exception { }
 class Main {
     public static Scanner scan = new Scanner(System.in);
 
@@ -35,7 +35,11 @@ class Main {
             } catch(WrongStudentName e) {
                 System.out.println("Błędne imię studenta!");
             }
+            catch(WrongDateOfBirth e) {
+                System.out.println("Nieprawidłowy format daty! Użyj formatu DD-MM-YYYY.");
+            }
         }
+    
     }
 
     public static int menu() {
@@ -57,7 +61,7 @@ class Main {
         return name;
     }
 
-    public static void exercise1() throws IOException, WrongStudentName {
+    public static void exercise1() throws IOException, WrongStudentName, WrongDateOfBirth {
         var name = ReadName();
 
         int age;
@@ -77,8 +81,13 @@ class Main {
         }
 
         scan.nextLine(); 
-        System.out.println("Podaj datę urodzenia DD-MM-YYYY");
+        System.out.println("Podaj datę urodzenia DD-MM-YYYY:");
         var date = scan.nextLine();
+
+        // Sprawdzenie formatu daty: DD-MM-YYYY, gdzie D i M mają max 2 cyfry, Y = 4 cyfry
+        if (!date.matches("^\\d{1,2}-\\d{1,2}-\\d{4}$")) {
+            throw new WrongDateOfBirth();
+        }
 
         (new Service()).addStudent(new Student(name, age, date));
     }
